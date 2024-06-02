@@ -23,7 +23,7 @@ class GoogleDriveService implements StorageService {
 
     const fileMetaData = {
       name: fileName,
-      parents: ['1FZElZDdacZ0CgNRHU8DZqnmzCQTAESwh'] // ID du dossier drive actuelle
+      parents: ['1FZElZDdacZ0CgNRHU8DZqnmzCQTAESwh'] 
     };
 
     const media = {

@@ -46,53 +46,47 @@ export const createUser = async (req: Request, res: Response) => {
     };
 
     const connection = Database.getInstance().getConnection();
-    connection.query(
-      "INSERT INTO users SET ?",
-      newUser,
-      (err, result: OkPacket) => {
-        if (err) {
-          console.error("Error inserting user:", err);
-          return res.status(500).send("Error inserting user");
-        }
-        res.status(201).send(`User added with ID: ${result.insertId}`);
-      }
-    );
+
+    try {
+      const [result]: [OkPacket, any] = await connection.query('INSERT INTO users SET ?', [newUser]);
+      res.status(201).send(`User added with ID: ${result.insertId}`);
+    } catch (err) {
+      console.error("Error inserting user:", err);
+      res.status(500).send("Error inserting user");
+    }
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).send("Internal server error");
   }
 };
 
-export const deleteUser = (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response) => {
   const userId = req.params.user_id;
 
   const connection = Database.getInstance().getConnection();
-  connection.query(
-    "DELETE FROM users WHERE user_id = ?",
-    [userId],
-    (err, result: OkPacket) => {
-      if (err) {
-        console.error("Error deleting user:", err);
-        return res.status(500).send("Error deleting user");
-      }
 
-      if (result.affectedRows === 0) {
-        return res.status(404).send("User not found");
-      }
+  try {
+    const [result]: [OkPacket, any] = await connection.query('DELETE FROM users WHERE user_id = ?', [userId]);
 
-      res.status(200).send(`User deleted with ID: ${userId}`);
+    if (result.affectedRows === 0) {
+      return res.status(404).send("User not found");
     }
-  );
+
+    res.status(200).send(`User deleted with ID: ${userId}`);
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    res.status(500).send("Error deleting user");
+  }
 };
 
-export const getAllUsers = (req: Request, res: Response) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   const connection = Database.getInstance().getConnection();
-  connection.query("SELECT * FROM users", (err, results: RowDataPacket[]) => {
-    if (err) {
-      console.error("Error fetching users:", err);
-      return res.status(500).send("Error fetching users");
-    }
 
+  try {
+    const [results]: [RowDataPacket[], any] = await connection.query('SELECT * FROM users');
     res.status(200).json(results);
-  });
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    res.status(500).send("Error fetching users");
+  }
 };

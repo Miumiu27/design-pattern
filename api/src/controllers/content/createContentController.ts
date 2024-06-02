@@ -5,9 +5,11 @@ import { OkPacket } from 'mysql2';
 import ContentFactory from '../../middlewares/factories/ContentFactory';
 import AbstractContentFactory from '../../middlewares/factories/AbstractContentFactory';
 import GoogleDriveService from '../../services/GoogleDriveService';
+import { DocumentStrategy } from '../content/documents/DocumentStrategy';
 
 const factory: AbstractContentFactory = new ContentFactory();
 const storageService = new GoogleDriveService();
+const documentStrategy = new DocumentStrategy();
 
 export const createContent = async (req: Request, res: Response) => {
   const { content_id, title, contentType, status, body } = req.body;
@@ -28,8 +30,8 @@ export const createContent = async (req: Request, res: Response) => {
 
     switch (contentType) {
       case ContentType.Document:
-        content = factory.createDocumentContent(content_id, title, createdAt, lastModifiedAt, status, body);
-        break;
+        await documentStrategy.createContent(req, res);
+        return; 
       case ContentType.Image:
         content = factory.createImageContent(content_id, title, createdAt, lastModifiedAt, status, path);
         break;
@@ -41,13 +43,17 @@ export const createContent = async (req: Request, res: Response) => {
     }
 
     const connection = Database.getInstance().getConnection();
-    connection.query('INSERT INTO contents SET ?', content, (err, result: OkPacket) => {
-      if (err) {
-        console.error('Error inserting content:', err);
-        return res.status(500).send('Error inserting content');
-      }
-      res.status(201).send(`Content added with ID: ${result.insertId}`);
-    });
+    const conn = await connection.getConnection();
+
+    try {
+      await conn.query('INSERT INTO contents SET ?', content);
+      res.status(201).send(`Content added with ID: ${content.content_id}`);
+    } catch (err) {
+      console.error('Error inserting content:', err);
+      res.status(500).send('Error inserting content');
+    } finally {
+      conn.release();
+    }
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).send(error.message);

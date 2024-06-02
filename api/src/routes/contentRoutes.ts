@@ -11,6 +11,6 @@ router.post('/contents', upload.single('file'), createContent);
 router.get('/contents', getAllContent); 
 router.get('/contents/other-content', getOtherContent); 
 router.delete('/contents/:content_id', deleteContent); 
-router.get('/contents/download/:fileId', downloadFile); 
+//router.get('/contents/download/:fileId', downloadFile); 
 
 export default router;
