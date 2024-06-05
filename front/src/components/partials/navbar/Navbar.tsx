@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ApplicationLogo from "../../constants/ApplicationLogo";
 import { Link, NavLink } from "react-router-dom";
 import Dropdown, { Trigger, Content, DropdownLink } from "../../constants/Dropdown"; 
 import ResponsiveNavLink from "../../constants/ResponsiveNavLink";
-import profile_image from "../../../assets/avatar.jpeg";
+import defaultProfileImage from "../../../assets/avatar.jpeg"; 
 import { BsPersonFillGear } from "react-icons/bs";
 import { IoLogOutSharp } from "react-icons/io5";
 import { MdOutlineDashboard } from "react-icons/md";
 
 const Navbar: React.FC = () => {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+  const [user, setUser] = useState<{ name: string; profile_image: string } | null>(null);
 
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+ 
   return (
     <>
       <nav className="bg-white border-b border-gray-100">
@@ -36,11 +44,11 @@ const Navbar: React.FC = () => {
                   <Trigger>
                     <span className="inline-flex rounded-md">
                       <span className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                        nom user
+                      {user ? user.name : "Loading..."}
                       </span>
 
                       <img
-                        src={profile_image}
+                         src={user ? `${import.meta.env.VITE_IMAGE_BASE_URL}/${user.profile_image}` : defaultProfileImage}
                         alt="profile_image"
                         width={50}
                         height={50}
