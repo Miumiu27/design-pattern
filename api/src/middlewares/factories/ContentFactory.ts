@@ -11,7 +11,8 @@ class ContentFactory implements AbstractContentFactory {
     createdAt: Date,
     lastModifiedAt: Date,
     status: string,
-    body: string
+    body: string,
+    user_id :number
   ): Content {
     return new DocumentContent(
       id,
@@ -19,7 +20,8 @@ class ContentFactory implements AbstractContentFactory {
       createdAt,
       lastModifiedAt,
       status,
-      body
+      body,
+      user_id
     );
   }
 
@@ -29,7 +31,8 @@ class ContentFactory implements AbstractContentFactory {
     createdAt: Date,
     lastModifiedAt: Date,
     status: string,
-    path: string 
+    path: string ,
+    user_id :number
   ): Content {
     return new ImageContent(
       id,
@@ -37,7 +40,8 @@ class ContentFactory implements AbstractContentFactory {
       createdAt,
       lastModifiedAt,
       status,
-      path
+      path,
+      user_id
     );
   }
 
@@ -47,7 +51,8 @@ class ContentFactory implements AbstractContentFactory {
     createdAt: Date,
     lastModifiedAt: Date,
     status: string,
-    path: string 
+    path: string ,
+    user_id:number
   ): Content {
     return new VideoContent(
       id,
@@ -55,7 +60,8 @@ class ContentFactory implements AbstractContentFactory {
       createdAt,
       lastModifiedAt,
       status,
-      path
+      path,
+      user_id
     );
   }
 }

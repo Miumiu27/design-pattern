@@ -7,6 +7,7 @@ interface Content {
     status: string;
     body?: string;
     path?:string;
+    user_id:number
 }
 
 enum ContentType {

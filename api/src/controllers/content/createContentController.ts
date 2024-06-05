@@ -12,7 +12,7 @@ const storageService = new GoogleDriveService();
 const documentStrategy = new DocumentStrategy();
 
 export const createContent = async (req: Request, res: Response) => {
-  const { content_id, title, contentType, status, body } = req.body;
+  const { content_id, title, contentType, status, body,user_id } = req.body;
   const file = req.file;
 
   const createdAt = new Date();
@@ -33,10 +33,10 @@ export const createContent = async (req: Request, res: Response) => {
         await documentStrategy.createContent(req, res);
         return; 
       case ContentType.Image:
-        content = factory.createImageContent(content_id, title, createdAt, lastModifiedAt, status, path);
+        content = factory.createImageContent(content_id, title, createdAt, lastModifiedAt, status, path,user_id);
         break;
       case ContentType.Video:
-        content = factory.createVideoContent(content_id, title, createdAt, lastModifiedAt, status, path);
+        content = factory.createVideoContent(content_id, title, createdAt, lastModifiedAt, status, path ,user_id);
         break;
       default:
         return res.status(400).send('Invalid content type');

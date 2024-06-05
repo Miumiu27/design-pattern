@@ -13,7 +13,7 @@ class GoogleDriveContentManager extends ContentManager {
   }
 
   public async createContent(contentData: any, file: Express.Multer.File | null): Promise<void> {
-    const { content_id, title, contentType, status, body } = contentData;
+    const { content_id, title, contentType, status, body, user_id } = contentData;
     const createdAt = new Date();
     const lastModifiedAt = new Date();
     let content;
@@ -24,18 +24,23 @@ class GoogleDriveContentManager extends ContentManager {
       }
       const path = await this.storageService.uploadFile(file.path, file.originalname, file.mimetype);
       content = contentType === ContentType.Image
-        ? this.factory.createImageContent(content_id, title, createdAt, lastModifiedAt, status, path)
-        : this.factory.createVideoContent(content_id, title, createdAt, lastModifiedAt, status, path);
+        ? this.factory.createImageContent(content_id, title, createdAt, lastModifiedAt, status, path, user_id)
+        : this.factory.createVideoContent(content_id, title, createdAt, lastModifiedAt, status, path, user_id);
     } else {
-      content = this.factory.createDocumentContent(content_id, title, createdAt, lastModifiedAt, status, body);
+      content = this.factory.createDocumentContent(content_id, title, createdAt, lastModifiedAt, status, body, user_id);
     }
 
     const connection = Database.getInstance().getConnection();
-    connection.query('INSERT INTO contents SET ?', content, (err, result: OkPacket) => {
-      if (err) {
+    try {
+      const [result]: [OkPacket, any] = await connection.query('INSERT INTO contents SET ?', content);
+      console.log('Content inserted with ID:', result.insertId);
+    } catch (err) {
+      if (err instanceof Error) {
         throw new Error(`Error inserting content: ${err.message}`);
+      } else {
+        throw new Error(`Error inserting content: ${err}`);
       }
-    });
+    }
   }
 }
 
