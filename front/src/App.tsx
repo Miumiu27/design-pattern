@@ -1,20 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Test from "./Test";
-import Dashboard from "./pages/admin/Dashboard";
-import UserList from "./pages/admin/UserList";
-import AddUser from "./pages/admin/partials/AddUser";
-import AllDocument from "./pages/admin/AllDocument";
-import MetaData from "./pages/admin/MetaData";
-import Settings from "./pages/admin/Settings";
-import Workflows from "./pages/admin/Workflows";
-import Activity from "./pages/user/Activity";
-import MyDocs from "./pages/user/MyDocs";
-import OtherContent from "./pages/user/OtherContent";
-import SharedDocument from "./pages/user/SharedDocument";
+import Dashboard from "./pages/backoffice/Dashboard";
+import UserList from "./pages/backoffice/UserList";
+import AddUser from "./pages/backoffice/partials/AddUser";
+import AllDocument from "./pages/backoffice/AllDocument";
+import MetaData from "./pages/backoffice/MetaData";
+import Settings from "./pages/backoffice/Settings";
+import Workflows from "./pages/backoffice/Workflows";
+import Activity from "./pages/frontoffice/Activity";
+import MyDocs from "./pages/frontoffice/MyDocs";
+import OtherContent from "./pages/frontoffice/OtherContent";
+import SharedDocument from "./pages/frontoffice/SharedDocument";
 import CreateNewDocument from "./pages/document/CreateNewDocument";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
-import AddAdmin from "./pages/admin/partials/AddAdmin";
+import AddAdmin from "./pages/backoffice/partials/AddAdmin";
 
 export default function App() {
   return (
@@ -32,7 +32,7 @@ export default function App() {
     <Route path="/admin/dashboard" element={<Dashboard/>} />
     <Route path="/admin/all-user" element={<UserList/>} />
     <Route path="/admin/add-user" element={<AddUser/>} />
-    <Route path="/admin/add-admin" element={<AddAdmin/>} />
+    <Route path="/admin/add-backoffice" element={<AddAdmin/>} />
     <Route path="/admin/all-document" element={<AllDocument/>} />
     <Route path="/admin/metadata" element={<MetaData/>} />
     <Route path="/admin/settings" element={<Settings/>} />

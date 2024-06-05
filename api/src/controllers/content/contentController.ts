@@ -42,3 +42,14 @@ export const getOtherContent = async (req: Request, res: Response) => {
     res.status(500).send('Error fetching content');
   }
 };
+
+export const getAllDocument = async (req: Request, res: Response) => {
+  try {
+    const connection = Database.getInstance().getConnection();
+    const [results] = await connection.query<RowDataPacket[]>('SELECT * FROM contents WHERE contentType = ?', ['Document']);
+    res.status(200).json(results);
+  } catch (error) {
+    console.error('Error fetching documents:', error);
+    res.status(500).send('Error fetching documents');
+  }
+};
