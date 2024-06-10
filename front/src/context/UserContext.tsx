@@ -4,8 +4,13 @@ import  { createContext, useState, useEffect, ReactNode } from 'react';
 interface User {
   email: string;
   name: string;
+<<<<<<< HEAD
   profile_image?: string; // Rendre cette propriété optionnelle
   // Les autres propriétés de l'utilisateur si besoin
+=======
+  role: string; 
+  // Les autres propriétés de l' utilisateur si besoin
+>>>>>>> 52547430eabc56b1f3e4f94ab369203f8078a16b
 }
 
 interface UserContextType {

@@ -4,31 +4,36 @@ import axios from 'axios';
 import login from "../../assets/login.jpeg";
 import { UserContext } from '../../context/UserContext';  
 
-const Login = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const context = useContext(UserContext);
-
-  if (!context) {
-    throw new Error('UserContext must be used within a UserProvider');
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    throw new Error('UserContext must be provided');
   }
-
-  const { setUser, setToken } = context;
+  const { setUser, setToken, token } = userContext;
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
+      const response = await axios.post<{ token: string; user: any }>(`${import.meta.env.VITE_API_URL}/login`, { email, password });
       const { token, user } = response.data;
       setToken(token);
       setUser(user);
       setError(null);
-      navigate('/admin/dashboard');
+      
+      if (user.role === 'admin') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       setError('Login failed. Please check your credentials.');
     }
+    
+    
   };
 
   return (
