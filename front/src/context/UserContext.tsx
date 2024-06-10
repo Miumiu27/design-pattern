@@ -1,9 +1,11 @@
-import { createContext, useState, useEffect, ReactNode } from 'react';
+import  { createContext, useState, useEffect, ReactNode } from 'react';
+
 
 interface User {
   email: string;
   name: string;
-  // Les autres propriétés de l' utilisateur si besoin
+  profile_image?: string; // Rendre cette propriété optionnelle
+  // Les autres propriétés de l'utilisateur si besoin
 }
 
 interface UserContextType {
@@ -11,6 +13,7 @@ interface UserContextType {
   token: string | null;
   setUser: (user: User | null) => void;
   setToken: (token: string | null) => void;
+  logout: () => void;
 }
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -22,11 +25,19 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   });
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
 
+
+
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+   
+  };
+
   useEffect(() => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
-      console.log(token , user);
-      
     } else {
       localStorage.removeItem('user');
     }
@@ -41,7 +52,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, [token]);
 
   return (
-    <UserContext.Provider value={{ user, token, setUser, setToken }}>
+    <UserContext.Provider value={{ user, token, setUser, setToken, logout }}>
       {children}
     </UserContext.Provider>
   );

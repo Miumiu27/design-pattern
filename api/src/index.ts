@@ -4,6 +4,7 @@ import cors from "cors";
 import contentRoutes from "./routes/contentRoutes";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
+import workflowRoutes from './routes/workflowRoutes';
 import path from "path";
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use("/src/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api", contentRoutes);
 app.use("/api", userRoutes);
 app.use("/api", authRoutes);
+app.use('/api', workflowRoutes);
 
 
 app.listen(PORT, () => {
