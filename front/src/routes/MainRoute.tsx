@@ -8,7 +8,6 @@ import { useContext } from "react";
 import Test from "../Test";
 import Dashboard from "../pages/backoffice/Dashboard";
 import UserList from "../pages/backoffice/UserList";
-// import AddUser from "../pages/backoffice/partials/AddUser";
 import AllDocument from "../pages/backoffice/AllDocument";
 import MetaData from "../pages/backoffice/MetaData";
 import Settings from "../pages/backoffice/Settings";
@@ -18,7 +17,6 @@ import MyDocs from "../pages/frontoffice/MyDocs";
 import OtherContent from "../pages/frontoffice/OtherContent";
 import SharedDocument from "../pages/frontoffice/SharedDocument";
 import CreateNewDocument from "../pages/document/CreateNewDocument";
-import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import AddAdmin from "../pages/backoffice/partials/AddAdmin";
 import ProtectedRoute from "./ProtectedRoutes";
@@ -33,7 +31,6 @@ export default function MainRoute() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/c" element={<Register />} />
 
         <Route
           path="/admin/dashboard"
