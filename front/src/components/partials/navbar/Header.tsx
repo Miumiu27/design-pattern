@@ -113,16 +113,31 @@
 
 // export default Header;
 
-import React, { useState } from "react";
-import ApplicationLogo from "../../constants/ApplicationLogo";
-import { NavLink, Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import Dropdown, { Trigger, Content, DropdownLink } from "../../constants/Dropdown"; 
 import profile_image from "../../../assets/avatar.jpeg";
 import { BsPersonFillGear } from "react-icons/bs";
 import { IoLogOutSharp } from "react-icons/io5";
+import { UserContext } from "../../../context/UserContext";
+import ApplicationLogo from "../../constants/ApplicationLogo";
 
 const Header: React.FC = () => {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    if (userContext) {
+      const { setUser, setToken } = userContext;
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      setUser(null);
+      setToken(null);
+      console.log('Données effacées');
+      navigate('/login');
+    }
+  };
 
   return (
     <nav className="bg-white border-b border-gray-100">
@@ -167,9 +182,8 @@ const Header: React.FC = () => {
                       Profile
                     </div>
                   </DropdownLink>
-                  <DropdownLink to="/login">
-
-                    <div className="flex ">
+                  <DropdownLink to="/login" onClick={handleLogout}>
+                    <div className="flex">
                       <IoLogOutSharp className="text-xl mx-4" />
                       Se déconnecter
                     </div>
@@ -226,9 +240,7 @@ const Header: React.FC = () => {
         <div className="pt-4 pb-1 border-t border-gray-200">
           <div className="mt-3 space-y-1">
             <NavLink to="#">Profile</NavLink>
-            <Link to="/login"> Se déconnecter</Link>
-            <NavLink to="/login" >
-
+            <NavLink to="/login" onClick={handleLogout}>
               Se déconnecter
             </NavLink>
           </div>
