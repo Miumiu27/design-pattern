@@ -5,9 +5,10 @@ import { downloadFile } from '../controllers/content/downloadFileController'; //
 import multer from 'multer';
 
 const router = Router();
-const upload = multer({ dest: 'uploads/' });
+//const upload = multer({ dest: 'uploads/' });
 
-router.post('/contents', upload.single('file'), createContent); 
+//router.post('/contents', upload.single('file'), createContent); 
+router.post('/contents',  createContent); 
 router.get('/contents', getAllContent); 
 router.get('/contents/all-docs', getAllDocument); 
 router.get('/contents/other-content', getOtherContent); 
