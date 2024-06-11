@@ -13,7 +13,7 @@ const Login: React.FC = () => {
   if (!userContext) {
     throw new Error('UserContext must be provided');
   }
-  const { setUser, setToken, token } = userContext;
+  const { setUser, setToken } = userContext;
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -27,7 +27,7 @@ const Login: React.FC = () => {
       if (user.role === 'admin') {
         navigate('/admin/dashboard');
       } else {
-        navigate('/');
+        navigate('/activity');
       }
     } catch (err) {
       setError('Login failed. Please check your credentials.');
