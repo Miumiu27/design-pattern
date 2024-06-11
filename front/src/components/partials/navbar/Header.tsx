@@ -113,20 +113,28 @@
 
 // export default Header;
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useState ,useEffect} from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import Dropdown, { Trigger, Content, DropdownLink } from "../../constants/Dropdown"; 
-import profile_image from "../../../assets/avatar.jpeg";
 import { BsPersonFillGear } from "react-icons/bs";
 import { IoLogOutSharp } from "react-icons/io5";
 import { UserContext } from "../../../context/UserContext";
 import ApplicationLogo from "../../constants/ApplicationLogo";
+import defaultProfileImage from "../../../assets/avatar.jpeg"; 
 
 const Header: React.FC = () => {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
+  const [user, setUser] = useState<{ name: string; profile_image: string } | null>(null);
 
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+ 
   const handleLogout = () => {
     if (userContext) {
       const { setUser, setToken } = userContext;
@@ -163,16 +171,16 @@ const Header: React.FC = () => {
                 <Trigger>
                   <span className="inline-flex rounded-md">
                     <span className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                      nom user
+                    {user ? user.name : "Loading..."}
                     </span>
 
                     <img
-                      src={profile_image}
+                       src={user ? `${import.meta.env.VITE_IMAGE_BASE_URL}/${user.profile_image}` : defaultProfileImage}
                       alt="profile_image"
-                      width={50}
-                      height={50}
-                      className="rounded-full "
-                    />
+                  width={50}
+                       height={50}
+                      className="rounded-full ml-2"
+                     />
                   </span>
                 </Trigger>
                 <Content>
