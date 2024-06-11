@@ -26,6 +26,18 @@ class Database {
   public getConnection(): mysql.Pool {
     return this.connection;
   }
+
+  public async testConnection(): Promise<void> {
+    try {
+      const connection = await this.connection.getConnection();
+      await connection.ping();
+      connection.release();
+      console.log("Database connection successful.");
+    } catch (error) {
+      console.error("Database connection failed:", error);
+      throw error;
+    }
+  }
 }
 
 export default Database;

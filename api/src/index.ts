@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import workflowRoutes from './routes/workflowRoutes';
 import path from "path";
+import Database from "./configs/database";
 dotenv.config();
 
 const app = express();
@@ -32,6 +33,17 @@ app.use("/api", authRoutes);
 app.use('/api', workflowRoutes);
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    const db = Database.getInstance();
+    await db.testConnection();
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to connect to the database. Server not started.");
+    process.exit(1); 
+  }
+};
+
+startServer();
