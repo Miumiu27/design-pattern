@@ -1,11 +1,5 @@
-import React, { useContext } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Test from "../Test";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "../pages/backoffice/Dashboard";
 import UserList from "../pages/backoffice/UserList";
 import AllDocument from "../pages/backoffice/AllDocument";
@@ -20,13 +14,9 @@ import CreateNewDocument from "../pages/document/CreateNewDocument";
 import Login from "../pages/auth/Login";
 import AddAdmin from "../pages/backoffice/partials/AddAdmin";
 import ProtectedRoute from "./ProtectedRoutes";
-import { UserContext } from "../context/UserContext";
 import PrivateRoute from "./PrivateRoute";
 
 const MainRoute: React.FC = () => {
-  const userContext = useContext(UserContext);
-  const isAuthenticated = !!userContext?.token;
-
   return (
     <Router>
       <Routes>
@@ -60,83 +50,50 @@ const MainRoute: React.FC = () => {
           path="/admin/metadata"
           element={<PrivateRoute element={<MetaData />} />}
         />
-        <Route
-          path="/"
-          element={
-            isAuthenticated ? (
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <Test />
-              </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
+
         <Route
           path="/activity"
           element={
-            isAuthenticated ? (
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <Activity />
-              </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            <ProtectedRoute>
+              <Activity />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-docs"
+          element={
+            <ProtectedRoute>
+              <MyDocs />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/other-content"
           element={
-            isAuthenticated ? (
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <OtherContent />
-              </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-          />
-        
-       <Route
-         path="/shared-docs"
-           element={
-             isAuthenticated ? (
-               <ProtectedRoute isAuthenticated={isAuthenticated}>
-                 <SharedDocument />
-              </ProtectedRoute>
-             ) : (
-               <Navigate to="/login" replace />
-         )
+            <ProtectedRoute>
+              <OtherContent />
+            </ProtectedRoute>
           }
         />
-         <Route
+        <Route
+          path="/shared-docs"
+          element={
+            <ProtectedRoute>
+              <SharedDocument />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/create-document"
           element={
-            isAuthenticated ? (
-               <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <CreateNewDocument />
-               </ProtectedRoute>
-            ) : (
-             <Navigate to="/login" replace />
-            )
-
-           }
+            <ProtectedRoute>
+              <CreateNewDocument />
+            </ProtectedRoute>
+          }
         />
-       <Route
-           path="/my-docs"
-        element={
-            isAuthenticated ? (
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <MyDocs />
-               </ProtectedRoute>
-           ) : (
-             <Navigate to="/login" replace />
-         )
-}
-        />
-            </Routes>
+      </Routes>
     </Router>
-   );
- }
+  );
+};
 
- export default   MainRoute;
+export default MainRoute;
