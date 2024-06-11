@@ -1,4 +1,4 @@
-import { Route, Navigate, useLocation, RouteProps } from 'react-router-dom';
+import { Route, Navigate, useLocation} from 'react-router-dom';
 import React, { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 

@@ -116,7 +116,7 @@
 import React, { useState } from "react";
 import ApplicationLogo from "../../constants/ApplicationLogo";
 import { NavLink, Link } from "react-router-dom";
-import Dropdown, { Trigger, Content, DropdownLink } from "../../constants/Dropdown"; // Assurez-vous du bon chemin d'importation
+import Dropdown, { Trigger, Content, DropdownLink } from "../../constants/Dropdown"; 
 import profile_image from "../../../assets/avatar.jpeg";
 import { BsPersonFillGear } from "react-icons/bs";
 import { IoLogOutSharp } from "react-icons/io5";
@@ -167,7 +167,7 @@ const Header: React.FC = () => {
                       Profile
                     </div>
                   </DropdownLink>
-                  <DropdownLink to="#">
+                  <DropdownLink to="/login">
 
                     <div className="flex ">
                       <IoLogOutSharp className="text-xl mx-4" />

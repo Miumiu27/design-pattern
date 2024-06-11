@@ -1,17 +1,20 @@
 import React, { useContext } from 'react';
-import { Route, Navigate, RouteProps } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
-const PrivateRoute: React.FC<RouteProps> = ({ ...routeProps }) => {
-  const userContext = useContext(UserContext);
+interface PrivateRouteProps {
+  element: React.ReactElement;
+}
 
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
+  const userContext = useContext(UserContext);
   const isAdmin = userContext?.user?.role === 'admin';
 
   if (!isAdmin) {
     return <Navigate to="/login" />;
   }
 
-  return <Route {...routeProps} />;
+  return element;
 };
 
 export default PrivateRoute;
