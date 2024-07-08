@@ -8,9 +8,6 @@ Bienvenue dans notre Système de Gestion d'Entreprise, une application web déve
 - [Fonctionnalités](#fonctionnalités)
 - [Technologies](#technologies)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Contribution](#contribution)
-- [Licence](#licence)
 
 ## Description
 
