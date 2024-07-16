@@ -1,6 +1,6 @@
 # Système de Gestion d'Entreprise
 
-Bienvenue dans notre Système de Gestion d'Entreprise, une application web développée avec React et Express en TypeScript, qui implémente les 23 design patterns.
+Ceci est une application web développée avec React et Express en TypeScript, qui implémente les 23 design patterns.
 
 ## Table des matières
 
