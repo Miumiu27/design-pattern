@@ -1,5 +1,6 @@
 import { Content } from "../../models/content/Content";
 
+
 interface AbstractContentFactory {
   createDocumentContent(
     id: number,

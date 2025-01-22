@@ -10,6 +10,7 @@ interface Content {
     user_id:number
 }
 
+
 enum ContentType {
     Document = 'document',
     Image = 'image',
