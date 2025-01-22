@@ -2,12 +2,6 @@
 
 Ceci est une application web développée avec React et Express en TypeScript, qui implémente les 23 design patterns.
 
-## Table des matières
-
-- [Description](#description)
-- [Fonctionnalités](#fonctionnalités)
-- [Technologies](#technologies)
-- [Installation](#installation)
 
 ## Description
 
@@ -29,17 +23,9 @@ Le Système de Gestion d'Entreprise est une application web complète destinée 
 - **Base de données** : (ajoutez votre base de données ici, par exemple, MongoDB, PostgreSQL)
 - **Autres** : (ajoutez d'autres technologies si nécessaire, par exemple, Redux, Jest, etc.)
 
-## Installation
+## Collaborateur
+- **Miumiu27": RAKOTOMALALA Andoniaina Miora
+- **Artniaina": ANDRIAHARINIAINA Kanto Fitiavana
+- **MarinaAdr's**: ANDRIANAMBININTSOA Marina Claudia
+  
 
-### Prérequis
-
-- Node.js
-- npm ou yarn
-- (ajoutez ici les prérequis pour votre base de données et autres technologies si nécessaire)
-
-### Étapes
-
-Clonez le dépôt
-
-   ```bash
-   [git clone https://github.com/kiwi005/design-pattern.git]
