@@ -27,5 +27,6 @@ Le Système de Gestion d'Entreprise est une application web complète destinée 
 - **Miumiu27": RAKOTOMALALA Andoniaina Miora
 - **Artniaina": ANDRIAHARINIAINA Kanto Fitiavana
 - **MarinaAdr's**: ANDRIANAMBININTSOA Marina Claudia
+- **Finoanaidev**: RAMIARIFINOANA Fitiavana Claudine
   
 
