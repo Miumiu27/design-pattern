@@ -24,8 +24,8 @@ Le Système de Gestion d'Entreprise est une application web complète destinée 
 - **Autres** : (ajoutez d'autres technologies si nécessaire, par exemple, Redux, Jest, etc.)
 
 ## Collaborateur
-- **Miumiu27": RAKOTOMALALA Andoniaina Miora
-- **Artniaina": ANDRIAHARINIAINA Kanto Fitiavana
+- **Miumiu27"**: RAKOTOMALALA Andoniaina Miora
+- **Artniaina**": ANDRIAHARINIAINA Kanto Fitiavana
 - **MarinaAdr's**: ANDRIANAMBININTSOA Marina Claudia
 - **Finoanaidev**: RAMIARIFINOANA Fitiavana Claudine
   
